@@ -14,6 +14,7 @@ A todo list.
 
 
 ## Credits
-* CSS glass effect tool from [css.glass](css.glass)
+* SVG icons from [Material Design](https://materialdesignicons.com/)
+* CSS glass effect tool from [css glass](https://css.glass)
 * Fluid CSS scaling defaults from [fluid-type-scale.com](https://www.fluid-type-scale.com/)
 * project idea from [The Odin Project](https://www.theodinproject.com/lessons/node-path-todo-list)
