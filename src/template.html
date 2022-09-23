@@ -52,7 +52,7 @@
           <div class="nav-projects">
             <h2 class="projects-title">Lists</h2>
             <ul class="projects-list"></ul>
-            <button class="projects-button" id="projects-button">
+            <button class="add-project-button" id="add-project-button">
               <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
                 <path
                   fill="currentColor"
@@ -66,7 +66,7 @@
       </header>
       <main class="project-container">
         <div class="project-header">
-          <h1 class="project-title">Project</h1>
+          <h1 class="project-title" id="project-title">Project</h1>
           <button class="project-sort">
             By Date<svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
               <path
@@ -79,7 +79,7 @@
         <ul class="task-container">
           <li class="task-elem">todo example</li>
         </ul>
-        <button class="add-task-button">
+        <button class="add-task-button" id="add-task-button">
           <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
             <path
               fill="currentColor"
@@ -89,6 +89,26 @@
           Add a task
         </button>
       </main>
+      <div class="modal" id="modal">
+        <div class="list-modal-content" id="list-modal">
+          <span class="modal-close" id="list-modal-close">&times;</span>
+          <form action="#" class="modal-form">
+            <div class="form-element">
+              <label for="list-title" class="form-label">Title</label>
+              <input type="text" id="list-title" required>
+            </div>
+            <div class="form-element">
+              <label for="list-description" class="form-label">Description</label>
+              <input type="text" id="list-description">
+            </div>
+            <button class="form-submit-button" id="list-submit-button">Add List</button>
+            <button class="form-edit-button" id="list-edit-button">Edit List</button>
+          </form>
+        </div>
+        <div class="task-modal-content" id="task-modal">
+          <span class="modal-close" id="task-modal-close">&times;</span>
+        </div>
+      </div>
     </div>
   </body>
 </html>

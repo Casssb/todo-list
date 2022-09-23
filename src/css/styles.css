@@ -9,9 +9,9 @@
   --font-size-xxl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
   --font-size-xxxl: clamp(3.05rem, 3.54vw + 2.17rem, 5rem);
 
-  --col-low: blue;
-  --col-medium: orange;
-  --col-danger: red;
+  --col-low: rgb(66, 66, 192);
+  --col-medium: rgb(207, 154, 54);
+  --col-danger: rgb(199, 39, 39);
 
   --col-theme: rgb(5, 2, 5);
   --col-light: rgb(201, 201, 201);
@@ -74,11 +74,11 @@ body {
 }
 
 .menu-item:first-child svg {
-  color: purple;
+  color: rgb(180, 47, 180);
 }
 
 .menu-item:nth-child(2) svg {
-  color: green;
+  color: rgb(73, 184, 73);
 }
 
 .menu-item:nth-child(3) svg {
@@ -98,6 +98,7 @@ body {
 
 .project-container {
   background: rgba(255, 255, 255, 0.2);
+  color: var(--col-theme);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   padding: 1rem;
@@ -120,4 +121,36 @@ body {
   align-items: center;
   justify-content: flex-start;
   width: 100%;
+}
+
+.modal {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(5px);
+}
+
+.list-modal-content {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  padding: 2rem;
+}
+
+.task-modal-content {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  padding: 2rem;
 }
