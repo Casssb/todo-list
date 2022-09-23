@@ -29,6 +29,7 @@
     "webpack-cli": "^4.10.0"
   },
   "dependencies": {
+    "date-fns": "^2.29.3",
     "sanitize.css": "^13.0.0"
   }
 }

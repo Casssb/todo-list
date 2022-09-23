@@ -74,7 +74,7 @@ body {
 }
 
 .menu-item:first-child svg {
-  color: var(--col-danger);
+  color: purple;
 }
 
 .menu-item:nth-child(2) svg {
@@ -86,7 +86,7 @@ body {
 }
 
 .menu-item:nth-child(4) svg {
-  color: yellow;
+  color: var(--col-danger);
 }
 
 .nav-projects {
