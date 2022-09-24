@@ -1,6 +1,6 @@
 import 'sanitize.css';
 import './css/styles.css';
-import { appendEventListeners } from './modules/dom';
+import { appendModalEventListeners } from './modules/dom';
 
 
-appendEventListeners();
+appendModalEventListeners();

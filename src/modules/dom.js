@@ -1,6 +1,6 @@
 /* Nodes for event listeners */
 
-const appendEventListeners = () => {
+const appendModalEventListeners = () => {
   const addProjectButton = document.querySelector('#add-project-button');
   const addTaskButton = document.querySelector('#add-task-button');
   const closeListModal = document.querySelector('#list-modal-close');
@@ -44,4 +44,4 @@ const renderTask = () => {};
 
 const updateSort = () => {};
 
-export { appendEventListeners };
+export { appendModalEventListeners };

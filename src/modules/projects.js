@@ -1,7 +1,8 @@
 const projectFactory = (title, description) => {
-  const id = new Date().toString();
+  const id = Date().now().toString();
   const tasks = [];
-  return { title, description, id, tasks };
+  const active = true;
+  return { title, description, id, tasks, active };
 };
 
 export { projectFactory };
