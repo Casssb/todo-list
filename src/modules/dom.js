@@ -1,4 +1,9 @@
-/* Nodes for event listeners */
+
+const createProjectMarkup = () => {
+  const projectContainer = document.querySelector('#projects-list');
+  const project = document.createElement('li');
+  project .innerHTML = ``
+}
 
 const appendModalEventListeners = () => {
   const addProjectButton = document.querySelector('#add-project-button');

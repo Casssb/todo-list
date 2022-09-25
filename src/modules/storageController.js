@@ -57,7 +57,8 @@ const deleteProject = (projectId) => {
 const addTask = (projectId, title, notes, dueDate, priority) => {
   const index = activeProjectIndex(projectId);
   const taskId = projectList[index].tasks.length;
-  const task = taskFactory(title, notes, dueDate, priority, taskId);
+  const project = projectId;
+  const task = taskFactory(title, notes, dueDate, priority, taskId, project);
   projectList[index].tasks.push(task);
   updateStorage();
 };
@@ -75,7 +76,7 @@ const switchTaskComplete = (taskId) => {
   projectList[taskId].complete
     ? (projectList[taskId].complete = false)
     : (projectList[taskId].complete = true);
-    updateStorage();
+  updateStorage();
 };
 
 const deleteTask = (projectId, taskId) => {
