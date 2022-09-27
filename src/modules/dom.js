@@ -1,9 +1,24 @@
+import { storageController } from "./storageController";
 
-const createProjectMarkup = () => {
+const createProjectMarkup = (elem) => {
   const projectContainer = document.querySelector('#projects-list');
+  const projectTitle = document.querySelector('#project-title');
+  const projectDescription = document.querySelector('#project-description');
+  if(elem.active) projectTitle.textContent = elem.title;
+  if(elem.active) projectDescription.textContent = elem.description;
   const project = document.createElement('li');
-  project .innerHTML = ``
-}
+  project.setAttribute('data-id', `${elem.id}`);
+  project.innerHTML = `<p class="project-li-title">${elem.title}</p>
+  <div class="project-buttons-container">
+    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M20.7,7C21.1,6.6 21.1,6 20.7,5.6L18.4,3.3C18,2.9 17.4,2.9 17,3.3L15.2,5.1L19,8.9M3,17.2V21H6.8L17.8,9.9L14.1,6.1L3,17.2M7,2V5H10V7H7V10H5V7H2V5H5V2H7Z" />
+  </svg>
+  <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19M8.46,11.88L9.87,10.47L12,12.59L14.12,10.47L15.53,11.88L13.41,14L15.53,16.12L14.12,17.53L12,15.41L9.88,17.53L8.47,16.12L10.59,14L8.46,11.88M15.5,4L14.5,3H9.5L8.5,4H5V6H19V4H15.5Z" />
+</svg>
+  </div>`;
+  projectContainer.append(project);
+};
 
 const appendModalEventListeners = () => {
   const addProjectButton = document.querySelector('#add-project-button');
@@ -20,9 +35,9 @@ const appendModalEventListeners = () => {
   });
 
   addTaskButton.addEventListener('click', () => {
-    modal.style.display = 'flex'
+    modal.style.display = 'flex';
     taskModalContent.style.display = 'flex';
-  })
+  });
 
   closeListModal.addEventListener('click', () => {
     modal.style.display = 'none';
@@ -36,11 +51,11 @@ const appendModalEventListeners = () => {
 
   window.onclick = (e) => {
     if (e.target == modal) {
-        modal.style.display = 'none'
-        taskModalContent.style.display = 'none';
-        listModalContent.style.display = 'none';
+      modal.style.display = 'none';
+      taskModalContent.style.display = 'none';
+      listModalContent.style.display = 'none';
     }
-  }
+  };
 };
 
 const renderProject = () => {};
