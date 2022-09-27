@@ -51,7 +51,7 @@
           </ul>
           <div class="nav-projects">
             <h2 class="projects-title">Lists</h2>
-            <ul class="projects-list"></ul>
+            <ul class="projects-list" id="projects-list"></ul>
             <button class="add-project-button" id="add-project-button">
               <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
                 <path
@@ -66,7 +66,12 @@
       </header>
       <main class="project-container">
         <div class="project-header">
-          <h1 class="project-title" id="project-title">Project</h1>
+          <div class="project-title-container">
+            <h1 class="project-title" id="project-title">Project</h1>
+            <p class="project-description" id="project-description">
+              A cool project
+            </p>
+          </div>
           <button class="project-sort">
             By Date<svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
               <path
@@ -95,14 +100,20 @@
           <form action="#" class="modal-form" id="list-form">
             <div class="form-element">
               <label for="list-title" class="form-label">Title</label>
-              <input type="text" id="list-title" required>
+              <input type="text" id="list-title" required />
             </div>
             <div class="form-element">
-              <label for="list-description" class="form-label">Description</label>
-              <input type="text" id="list-description">
+              <label for="list-description" class="form-label"
+                >Description</label
+              >
+              <input type="text" id="list-description" />
             </div>
-            <button class="form-submit-button" id="list-submit-button">Add List</button>
-            <button class="form-edit-button" id="list-edit-button">Edit List</button>
+            <button class="form-submit-button" id="list-submit-button">
+              Add List
+            </button>
+            <button class="form-edit-button" id="list-edit-button">
+              Edit List
+            </button>
           </form>
         </div>
         <div class="task-modal-content" id="task-modal">
@@ -110,7 +121,7 @@
           <form action="#" class="modal-form" id="task-form">
             <div class="form-element">
               <label for="task-title" class="form-label">Title</label>
-              <input type="text" id="task-title" required>
+              <input type="text" id="task-title" required />
             </div>
             <div class="form-element">
               <label for="task-notes" class="form-label">Notes</label>
@@ -118,7 +129,7 @@
             </div>
             <div class="form-element">
               <label for="task-date" class="form-label">Due Date</label>
-              <input type="date" id="task-date" name="due-date" required>
+              <input type="date" id="task-date" name="due-date" required />
             </div>
             <div class="form-element">
               <label for="task-priority" class="form-label">Priority</label>
@@ -128,8 +139,12 @@
                 <option value="3">High</option>
               </select>
             </div>
-            <button class="form-submit-button" id="task-submit-button">Add Task</button>
-            <button class="form-edit-button" id="task-edit-button">Edit Task</button>
+            <button class="form-submit-button" id="task-submit-button">
+              Add Task
+            </button>
+            <button class="form-edit-button" id="task-edit-button">
+              Edit Task
+            </button>
           </form>
         </div>
       </div>
