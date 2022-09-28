@@ -15,6 +15,20 @@ const storageController = (() => {
     },
   ];
 
+  const loopThroughProjects = (callback) => {
+    projectList.forEach((project) => {
+      callback(project);
+    });
+  };
+
+  const loopThroughTasks = (callback) => {
+    projectList.forEach((project) => {
+      project.forEach((task) => {
+        callback(task);
+      });
+    });
+  };
+
   const updateStorage = () => {
     localStorage.setItem(
       LOCAL_STORAGE_PROJECTS_KEY,
@@ -43,6 +57,7 @@ const storageController = (() => {
     const project = projectFactory(name, description);
     projectList.push(project);
     updateStorage();
+    return project;
   };
 
   const editProject = (projectId, title, description) => {
@@ -88,8 +103,21 @@ const storageController = (() => {
     projectList[index].splice(taskId, 1);
     updateStorage();
   };
+
+  return {
+    loopThroughProjects,
+    loopThroughTasks,
+    resetActiveProject,
+    activeProjectIndex,
+    setActiveProject,
+    addProject,
+    editProject,
+    deleteProject,
+    addTask,
+    editTask,
+    switchTaskComplete,
+    deleteTask
+  };
 })();
 
-export {
-  storageController
-};
+export { storageController };
