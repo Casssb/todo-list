@@ -38,6 +38,7 @@ body {
   display: grid;
   grid-template-columns: minmax(12rem, min-content) 1fr;
   max-width: 1000px;
+  height: 80vh;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 1rem;
   box-shadow: 0 4px 30px rgba(209, 209, 209, 0.1);
@@ -47,13 +48,16 @@ body {
 }
 
 .header {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   padding: 0.5rem;
   color: var(--col-theme);
   background: rgba(255, 255, 255, 0.7);
+}
+.nav {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
 }
 
 .nav-menu {
@@ -96,8 +100,6 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  overflow-y: auto;
-  height: 10rem;
 }
 
 .projects-title {
@@ -105,7 +107,12 @@ body {
 }
 
 .projects-list {
+  overflow-y: auto;
+  max-height: 15rem;
+}
 
+.add-project-button {
+  margin-top: auto;
 }
 
 .project-li-elem {

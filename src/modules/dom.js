@@ -60,30 +60,38 @@ const viewController = (() => {
     projectContainer.append(projectLi);
     /* Append event listener for actions edit/delete & to choose active project */
     projectLi.addEventListener('click', (e) => {
-        e.stopPropagation();
-        e.preventDefault();
-        const target = e.target;
-        const projectId = e.currentTarget.dataset.id;
-        const action = target.dataset.action;
-        storageController.setActiveProject(projectId)
-        projectContainer.innerHTML = ''
-        storageController.loopThroughProjects(appendProjectMarkup)
-        console.log(projectId)
-  
-        switch(action) {
-          case 'edit':
-            modal.style.display = 'flex';
-            listModalContent.style.display = 'flex';
-            listEditButton.style.display = 'flex';
-            listSubmitButton.style.display = 'none';
-  
-        }
-      });
-  };
+      e.stopPropagation();
+      e.preventDefault();
+      const target = e.target;
+      const projectId = e.currentTarget.dataset.id;
+      const action = target.dataset.action;
+      storageController.setActiveProject(projectId);
+      projectContainer.innerHTML = '';
+      storageController.loopThroughProjects(appendProjectMarkup);
+      console.log(projectId);
 
+      switch (action) {
+        case 'edit':
+          listForm.reset();
+          modal.style.display = 'flex';
+          listModalContent.style.display = 'flex';
+          listEditButton.style.display = 'flex';
+          listSubmitButton.style.display = 'none';
+          break;
+        case 'delete':
+          storageController.deleteProject(projectId);
+          projectContainer.innerHTML = '';
+          storageController.loopThroughProjects(appendProjectMarkup);
+          break;
+        default:
+          return;
+      }
+    });
+  };
 
   /* Listeners to open/close modal */
   addProjectButton.addEventListener('click', () => {
+    listForm.reset();
     modal.style.display = 'flex';
     listModalContent.style.display = 'flex';
     listEditButton.style.display = 'none';
@@ -118,9 +126,9 @@ const viewController = (() => {
     listModalContent.style.display = 'none';
   });
 
-  listEditButton.addEventListener('click', () => {
-
-  })
+  listEditButton.addEventListener('click', (e) => {
+    e.preventDefault();
+  });
 
   window.onclick = (e) => {
     if (e.target == modal) {
