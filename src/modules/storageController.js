@@ -16,14 +16,27 @@ const storageController = (() => {
   ];
 
   const loopThroughProjects = (callback) => {
+    if (projectList.length === 1) {
+      projectList[0].active = true;
+    }
     projectList.forEach((project) => {
       callback(project);
     });
   };
 
-  const loopThroughTasks = (callback) => {
+  const loopThroughActiveProjectTasks = (callback) => {
     projectList.forEach((project) => {
-      project.forEach((task) => {
+      if (project.active === true) {
+        project.tasks.forEach((task) => {
+          callback(task);
+        });
+      }
+    });
+  };
+
+  const loopThroughAllTasks = (callback) => {
+    projectList.forEach((project) => {
+      project.tasks.forEach((task) => {
         callback(task);
       });
     });
@@ -54,6 +67,16 @@ const storageController = (() => {
     updateStorage();
   };
 
+  const getActiveProject = () => {
+    let activeId;
+    projectList.forEach((list) => {
+      if (list.active) {
+        activeId = list.id;
+      }
+    });
+    return activeId;
+  };
+
   const addProject = (name, description) => {
     resetActiveProject();
     const project = projectFactory(name, description);
@@ -62,10 +85,10 @@ const storageController = (() => {
     return project;
   };
 
-  const editProject = (projectId, title, description) => {
+  const editProject = (projectId, projectTitle, projectDescription) => {
     const index = activeProjectIndex(projectId);
-    projectList[index].title = title;
-    projectList[index].description = description;
+    projectList[index].title = projectTitle;
+    projectList[index].description = projectDescription;
     updateStorage();
   };
 
@@ -75,7 +98,8 @@ const storageController = (() => {
     updateStorage();
   };
 
-  const addTask = (projectId, title, notes, dueDate, priority) => {
+  const addTask = (title, notes, dueDate, priority) => {
+    const projectId = getActiveProject();
     const index = activeProjectIndex(projectId);
     const taskId = projectList[index].tasks.length;
     const project = projectId;
@@ -84,7 +108,8 @@ const storageController = (() => {
     updateStorage();
   };
 
-  const editTask = (projectId, title, notes, dueDate, priority, taskId) => {
+  const editTask = (title, notes, dueDate, priority, taskId) => {
+    const projectId = getActiveProject();
     const index = activeProjectIndex(projectId);
     projectList[index][taskId].title = title;
     projectList[index][taskId].notes = notes;
@@ -100,25 +125,29 @@ const storageController = (() => {
     updateStorage();
   };
 
-  const deleteTask = (projectId, taskId) => {
+  const deleteTask = (taskId) => {
+    const projectId = getActiveProject();
     const index = activeProjectIndex(projectId);
     projectList[index].splice(taskId, 1);
     updateStorage();
   };
 
   return {
+    projectList,
     loopThroughProjects,
-    loopThroughTasks,
+    loopThroughActiveProjectTasks,
+    loopThroughAllTasks,
     resetActiveProject,
     activeProjectIndex,
     setActiveProject,
+    getActiveProject,
     addProject,
     editProject,
     deleteProject,
     addTask,
     editTask,
     switchTaskComplete,
-    deleteTask
+    deleteTask,
   };
 })();
 
