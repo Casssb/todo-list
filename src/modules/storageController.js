@@ -42,11 +42,13 @@ const storageController = (() => {
   };
 
   const activeProjectIndex = (projectId) => {
+    projectId = projectId.toString();
     const index = projectList.map((list) => list.id).indexOf(projectId);
     return index;
   };
 
   const setActiveProject = (projectId) => {
+    resetActiveProject();
     const index = activeProjectIndex(projectId);
     projectList[index].active = true;
     updateStorage();

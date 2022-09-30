@@ -36,7 +36,7 @@ body {
 
 .container {
   display: grid;
-  grid-template-columns: min-content 1fr;
+  grid-template-columns: minmax(12rem, min-content) 1fr;
   max-width: 1000px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 1rem;
@@ -95,7 +95,28 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: flex-start;
+  overflow-y: auto;
+  height: 10rem;
+}
+
+.projects-title {
+
+}
+
+.projects-list {
+
+}
+
+.project-li-elem {
+  display: flex;
+  align-items: center;
   justify-content: center;
+  flex: 1;
+}
+
+.project-li-title {
+
 }
 
 .project-container {
