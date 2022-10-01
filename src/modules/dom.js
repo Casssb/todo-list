@@ -1,4 +1,5 @@
 import { storageController } from './storageController';
+import { parseISO, isAfter, formatDistance } from 'date-fns';
 
 const viewController = (() => {
   /* Modal nodes */
@@ -112,6 +113,8 @@ const viewController = (() => {
 
   const appendTaskMarkup = (task) => {
     const taskLi = document.createElement('li');
+    const today = new Date();
+    const daysTilDue = formatDistance(parseISO(task.dueDate), today);
     taskLi.setAttribute('data-index', `${task.id}`);
     taskLi.setAttribute('data-project', `${task.project}`);
     taskLi.classList.add('task-li-elem');
@@ -146,7 +149,11 @@ const viewController = (() => {
         </svg>`
     }
     <p class="task-li-title">${task.title}</p>
-    <span class="task-li-date">${task.dueDate}</span>
+    <span class="task-li-date">${
+      isAfter(today, parseISO(task.dueDate))
+        ? 'Overdue'
+        : `Due in ${daysTilDue}`
+    }</span>
     <div class="task-buttons-container" id="task-buttons-container">
       <svg
         style="width: 24px; height: 24px"
@@ -238,6 +245,18 @@ const viewController = (() => {
         default:
           throw new Error('no action selected');
       }
+    });
+  };
+
+  const appendMenuListeners = () => {
+    const menuItems = document.querySelectorAll('.menu-item');
+    menuItems.forEach((item) => {
+      item.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        const target = e.currentTarget;
+        const action = target.dataset.menu;
+      });
     });
   };
 
@@ -340,12 +359,8 @@ const viewController = (() => {
     }
   };
 
-  return { appendProjectMarkup };
+  return { appendProjectMarkup, appendMenuListeners };
 })();
-
-const renderProject = () => {};
-
-const renderTask = () => {};
 
 const updateSort = () => {};
 

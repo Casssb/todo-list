@@ -4,3 +4,4 @@ import { viewController } from './modules/dom';
 import { storageController } from './modules/storageController';
 
 storageController.loopThroughProjects(viewController.appendProjectMarkup);
+viewController.appendMenuListeners();
