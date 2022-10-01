@@ -108,27 +108,30 @@ const storageController = (() => {
     updateStorage();
   };
 
-  const editTask = (title, notes, dueDate, priority, taskId) => {
-    const projectId = getActiveProject();
-    const index = activeProjectIndex(projectId);
-    projectList[index][taskId].title = title;
-    projectList[index][taskId].notes = notes;
-    projectList[index][taskId].dueDate = dueDate;
-    projectList[index][taskId].priority = priority;
+  const getTaskIndex = (projectindex, taskTag) => {
+    const taskId = taskTag;
+    const index = projectList[projectindex].tasks
+      .map((task) => task.id).indexOf(taskId);
+    return index;
+  };
+
+  const editTask = (projectId, taskId,title, notes, dueDate, priority) => {
+    projectList[projectId].tasks[taskId].title = title;
+    projectList[projectId].tasks[taskId].notes = notes;
+    projectList[projectId].tasks[taskId].dueDate = dueDate;
+    projectList[projectId].tasks[taskId].priority = priority;
     updateStorage();
   };
 
-  const switchTaskComplete = (taskId) => {
-    projectList[taskId].complete
-      ? (projectList[taskId].complete = false)
-      : (projectList[taskId].complete = true);
+  const switchTaskComplete = (projectIndex, taskIndex) => {
+    projectList[projectIndex].tasks[taskIndex].complete
+      ? (projectList[projectIndex].tasks[taskIndex].complete = false)
+      : (projectList[projectIndex].tasks[taskIndex].complete = true);
     updateStorage();
   };
 
-  const deleteTask = (taskId) => {
-    const projectId = getActiveProject();
-    const index = activeProjectIndex(projectId);
-    projectList[index].splice(taskId, 1);
+  const deleteTask = (projectIndex, taskIndex) => {
+    projectList[projectIndex].tasks.splice(taskIndex, 1);
     updateStorage();
   };
 
@@ -145,6 +148,7 @@ const storageController = (() => {
     editProject,
     deleteProject,
     addTask,
+    getTaskIndex,
     editTask,
     switchTaskComplete,
     deleteTask,
