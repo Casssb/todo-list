@@ -97,34 +97,7 @@
             </svg>
           </button>
         </div>
-        <ul class="task-container" id="task-container">
-<!--           <li>
-            <svg
-              style="width: 24px; height: 24px"
-              viewBox="0 0 24 24"
-              aria-label="complete-checkbox"
-              data-action="complete"
-            >
-              <path
-                fill="currentColor"
-                pointer-events="none"
-                d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"
-              />
-            </svg>
-            <svg
-              style="width: 24px; height: 24px"
-              viewBox="0 0 24 24"
-              aria-label="complete-checkbox"
-              data-action="complete"
-            >
-              <path
-                fill="currentColor"
-                pointer-events="none"
-                d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7Z"
-              />
-            </svg>
-          </li> -->
-        </ul>
+        <ul class="task-container" id="task-container"></ul>
         <button class="add-task-button" id="add-task-button">
           <svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
             <path
@@ -192,10 +165,20 @@
                 <option value="3">High</option>
               </select>
             </div>
-            <button class="form-submit-button" id="task-submit-button">
+            <button
+              type="submit"
+              class="form-submit-button"
+              id="task-submit-button"
+            >
               Add Task
             </button>
-            <button class="form-edit-button" id="task-edit-button">
+            <button
+              type="button"
+              class="form-edit-button"
+              id="task-edit-button"
+              data-current-task=""
+              data-current-project=""
+            >
               Edit Task
             </button>
           </form>
