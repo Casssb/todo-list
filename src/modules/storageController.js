@@ -7,8 +7,8 @@ const storageController = (() => {
     localStorage.getItem(LOCAL_STORAGE_PROJECTS_KEY)
   ) || [
     {
-      title: 'General',
-      description: 'General Tasks',
+      title: 'General Tasks',
+      description: '',
       id: 'default',
       tasks: [],
       active: true,
@@ -25,13 +25,30 @@ const storageController = (() => {
   };
 
   const loopThroughActiveProjectTasks = (callback) => {
+    const activeProjectTasks = [];
     projectList.forEach((project) => {
       if (project.active === true) {
         project.tasks.forEach((task) => {
-          callback(task);
+          task.isDisplayed = true;
+          activeProjectTasks.push(task);
         });
       }
     });
+    activeProjectTasks.sort((a, b) => a.complete - b.complete);
+    activeProjectTasks.forEach((task) => callback(task));
+  };
+
+  const loopThroughDisplayedTasks = (callback) => {
+    const displayedTasks = [];
+    projectList.forEach((project) => {
+      project.tasks.forEach((task) => {
+        if (task.isDisplayed === true) {
+          displayedTasks.push(task);
+        }
+      });
+    });
+    displayedTasks.sort((a, b) => a.complete - b.complete);
+    displayedTasks.forEach((task) => callback(task));
   };
 
   const loopThroughAllTasks = (callback) => {
@@ -40,6 +57,20 @@ const storageController = (() => {
         callback(task);
       });
     });
+  };
+
+  const LoopThroughImportantTasks = (callback) => {
+    const important = []
+    projectList.forEach(project => {
+      project.tasks.forEach(task => {
+        if (task.priority === '3') {
+          important.push(task)
+        }
+      })
+    })
+    important.forEach(task => {
+      callback(task)
+    })
   };
 
   const updateStorage = () => {
@@ -111,11 +142,12 @@ const storageController = (() => {
   const getTaskIndex = (projectindex, taskTag) => {
     const taskId = taskTag;
     const index = projectList[projectindex].tasks
-      .map((task) => task.id).indexOf(taskId);
+      .map((task) => task.id)
+      .indexOf(taskId);
     return index;
   };
 
-  const editTask = (projectId, taskId,title, notes, dueDate, priority) => {
+  const editTask = (projectId, taskId, title, notes, dueDate, priority) => {
     projectList[projectId].tasks[taskId].title = title;
     projectList[projectId].tasks[taskId].notes = notes;
     projectList[projectId].tasks[taskId].dueDate = dueDate;
@@ -130,6 +162,17 @@ const storageController = (() => {
     updateStorage();
   };
 
+  const setDisplayedTask = (task) => {
+    task.isDisplayed = true;
+  };
+  const resetDisplayedTasks = () => {
+    projectList.forEach((project) => {
+      project.tasks.forEach((task) => {
+        task.isDisplayed = false;
+      });
+    });
+  };
+
   const deleteTask = (projectIndex, taskIndex) => {
     projectList[projectIndex].tasks.splice(taskIndex, 1);
     updateStorage();
@@ -139,7 +182,9 @@ const storageController = (() => {
     projectList,
     loopThroughProjects,
     loopThroughActiveProjectTasks,
+    loopThroughDisplayedTasks,
     loopThroughAllTasks,
+    LoopThroughImportantTasks,
     resetActiveProject,
     activeProjectIndex,
     setActiveProject,
@@ -151,6 +196,8 @@ const storageController = (() => {
     getTaskIndex,
     editTask,
     switchTaskComplete,
+    setDisplayedTask,
+    resetDisplayedTasks,
     deleteTask,
   };
 })();

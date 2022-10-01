@@ -76,12 +76,14 @@ const viewController = (() => {
     projectLi.addEventListener('click', (e) => {
       e.stopPropagation();
       e.preventDefault();
+      addTaskButton.style.display = 'flex';
       const target = e.target;
       const projectId = e.currentTarget.dataset.id;
       const projectIndex = storageController.activeProjectIndex(projectId);
       const action = target.dataset.action;
       storageController.setActiveProject(projectId);
       taskContainer.innerHTML = '';
+      storageController.resetDisplayedTasks();
       storageController.loopThroughActiveProjectTasks(appendTaskMarkup);
       projectContainer.innerHTML = '';
       storageController.loopThroughProjects(appendProjectMarkup);
@@ -211,7 +213,7 @@ const viewController = (() => {
         case 'complete':
           storageController.switchTaskComplete(projectIndex, taskIndex);
           taskContainer.innerHTML = '';
-          storageController.loopThroughActiveProjectTasks(appendTaskMarkup);
+          storageController.loopThroughDisplayedTasks(appendTaskMarkup);
           break;
         case 'notes':
           return;
@@ -240,7 +242,7 @@ const viewController = (() => {
         case 'delete':
           storageController.deleteTask(projectIndex, taskIndex);
           taskContainer.innerHTML = '';
-          storageController.loopThroughActiveProjectTasks(appendTaskMarkup);
+          storageController.loopThroughDisplayedTasks(appendTaskMarkup);
           break;
         default:
           throw new Error('no action selected');
@@ -252,10 +254,42 @@ const viewController = (() => {
     const menuItems = document.querySelectorAll('.menu-item');
     menuItems.forEach((item) => {
       item.addEventListener('click', (e) => {
+        addTaskButton.style.display = 'none';
         e.preventDefault();
         e.stopPropagation();
         const target = e.currentTarget;
         const action = target.dataset.menu;
+
+        switch (action) {
+          case 'all':
+            taskContainer.innerHTML = '';
+            projectTitle.textContent = 'All Tasks'
+            projectDescription.textContent = ''
+            storageController.resetDisplayedTasks();
+            storageController.loopThroughAllTasks(storageController.setDisplayedTask)
+            storageController.loopThroughAllTasks(appendTaskMarkup);
+            break;
+          case 'today':
+            taskContainer.innerHTML = '';
+            projectTitle.textContent = 'Today'
+            projectDescription.textContent = ''
+            storageController.resetDisplayedTasks();
+            break;
+          case 'next 7':
+            taskContainer.innerHTML = '';
+            projectTitle.textContent = 'This Week'
+            projectDescription.textContent = ''
+            storageController.resetDisplayedTasks();
+            break;
+          case 'important':
+            taskContainer.innerHTML = ''
+            projectTitle.textContent = 'Important'
+            projectDescription.textContent = ''
+            storageController.resetDisplayedTasks();
+            storageController.LoopThroughImportantTasks(storageController.setDisplayedTask);
+            storageController.LoopThroughImportantTasks(appendTaskMarkup);
+            break;
+        }
       });
     });
   };
@@ -294,6 +328,7 @@ const viewController = (() => {
       listFormDescription.value
     );
     projectContainer.innerHTML = '';
+    storageController.resetDisplayedTasks();
     storageController.loopThroughProjects(appendProjectMarkup);
     taskContainer.innerHTML = '';
     storageController.loopThroughActiveProjectTasks(appendTaskMarkup);
@@ -326,6 +361,7 @@ const viewController = (() => {
       taskFormPriority.value
     );
     taskContainer.innerHTML = '';
+    storageController.resetDisplayedTasks();
     storageController.loopThroughActiveProjectTasks(appendTaskMarkup);
     taskForm.reset();
     modal.style.display = 'none';
@@ -345,7 +381,7 @@ const viewController = (() => {
       taskFormPriority.value
     );
     taskContainer.innerHTML = '';
-    storageController.loopThroughActiveProjectTasks(appendTaskMarkup);
+    storageController.loopThroughDisplayedTasks(appendTaskMarkup);
     taskForm.reset();
     modal.style.display = 'none';
     taskModalContent.style.display = 'none';
