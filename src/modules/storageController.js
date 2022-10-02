@@ -1,5 +1,6 @@
 import { projectFactory } from './projects';
 import { taskFactory } from './tasks';
+import { isToday, isThisWeek, parseISO } from 'date-fns';
 
 const storageController = (() => {
   const LOCAL_STORAGE_PROJECTS_KEY = 'todolist.list';
@@ -59,18 +60,46 @@ const storageController = (() => {
     });
   };
 
-  const LoopThroughImportantTasks = (callback) => {
-    const important = []
-    projectList.forEach(project => {
-      project.tasks.forEach(task => {
-        if (task.priority === '3') {
-          important.push(task)
+  const loopThroughTodaysTasks = (callback) => {
+    const today = [];
+    projectList.forEach((project) => {
+      project.tasks.forEach((task) => {
+        if (isToday(parseISO(task.dueDate))) {
+          today.push(task);
         }
-      })
-    })
-    important.forEach(task => {
-      callback(task)
-    })
+      });
+    });
+    today.forEach((task) => {
+      callback(task);
+    });
+  };
+
+  const loopThroughWeeksTasks = (callback) => {
+    const week = [];
+    projectList.forEach((project) => {
+      project.tasks.forEach((task) => {
+        if (isThisWeek(parseISO(task.dueDate))) {
+          week.push(task);
+        }
+      });
+    });
+    week.forEach((task) => {
+      callback(task);
+    });
+  };
+
+  const loopThroughImportantTasks = (callback) => {
+    const important = [];
+    projectList.forEach((project) => {
+      project.tasks.forEach((task) => {
+        if (task.priority === '3') {
+          important.push(task);
+        }
+      });
+    });
+    important.forEach((task) => {
+      callback(task);
+    });
   };
 
   const updateStorage = () => {
@@ -184,7 +213,9 @@ const storageController = (() => {
     loopThroughActiveProjectTasks,
     loopThroughDisplayedTasks,
     loopThroughAllTasks,
-    LoopThroughImportantTasks,
+    loopThroughTodaysTasks,
+    loopThroughWeeksTasks,
+    loopThroughImportantTasks,
     resetActiveProject,
     activeProjectIndex,
     setActiveProject,

@@ -29,6 +29,12 @@ const viewController = (() => {
   const projectDescription = document.querySelector('#project-description');
   /* Task display nodes */
   const taskContainer = document.querySelector('#task-container');
+  const sortButton = document.querySelector('#sort-button');
+  const sortButtonText = document.querySelector('#sort-button-text');
+  /* Variable to contain state of previous menu button selected. This is then
+  checked to validate which tasks to append to DOM when dynamic event listeners
+  trigger later on (edit/delete task items) */
+  let menuState = 'project';
 
   const appendProjectMarkup = (project) => {
     if (project.active) projectTitle.textContent = project.title;
@@ -77,6 +83,7 @@ const viewController = (() => {
       e.stopPropagation();
       e.preventDefault();
       addTaskButton.style.display = 'flex';
+      menuState = 'project';
       const target = e.target;
       const projectId = e.currentTarget.dataset.id;
       const projectIndex = storageController.activeProjectIndex(projectId);
@@ -242,7 +249,16 @@ const viewController = (() => {
         case 'delete':
           storageController.deleteTask(projectIndex, taskIndex);
           taskContainer.innerHTML = '';
-          storageController.loopThroughDisplayedTasks(appendTaskMarkup);
+          menuState === 'project' &&
+            storageController.loopThroughDisplayedTasks(appendTaskMarkup);
+          menuState === 'all' &&
+            storageController.loopThroughAllTasks(appendTaskMarkup);
+          menuState === 'today' &&
+            storageController.loopThroughTodaysTasks(appendTaskMarkup);
+          menuState === 'next 7' &&
+            storageController.loopThroughWeeksTasks(appendTaskMarkup);
+          menuState === 'important' &&
+            storageController.loopThroughImportantTasks(appendTaskMarkup);
           break;
         default:
           throw new Error('no action selected');
@@ -262,32 +278,49 @@ const viewController = (() => {
 
         switch (action) {
           case 'all':
+            menuState = 'all';
             taskContainer.innerHTML = '';
-            projectTitle.textContent = 'All Tasks'
-            projectDescription.textContent = ''
+            projectTitle.textContent = 'All Tasks';
+            projectDescription.textContent = '';
             storageController.resetDisplayedTasks();
-            storageController.loopThroughAllTasks(storageController.setDisplayedTask)
+            storageController.loopThroughAllTasks(
+              storageController.setDisplayedTask
+            );
             storageController.loopThroughAllTasks(appendTaskMarkup);
             break;
           case 'today':
+            menuState = 'today';
             taskContainer.innerHTML = '';
-            projectTitle.textContent = 'Today'
-            projectDescription.textContent = ''
+            projectTitle.textContent = 'Today';
+            projectDescription.textContent = '';
             storageController.resetDisplayedTasks();
+            storageController.loopThroughTodaysTasks(
+              storageController.setDisplayedTask
+            );
+            storageController.loopThroughTodaysTasks(appendTaskMarkup);
             break;
           case 'next 7':
+            menuState = 'next 7';
             taskContainer.innerHTML = '';
-            projectTitle.textContent = 'This Week'
-            projectDescription.textContent = ''
+            projectTitle.textContent = 'This Week';
+            projectDescription.textContent = '';
             storageController.resetDisplayedTasks();
+            storageController.loopThroughWeeksTasks(
+              storageController.setDisplayedTask
+            );
+            menuState === 'next 7' &&
+              storageController.loopThroughWeeksTasks(appendTaskMarkup);
             break;
           case 'important':
-            taskContainer.innerHTML = ''
-            projectTitle.textContent = 'Important'
-            projectDescription.textContent = ''
+            menuState = 'important';
+            taskContainer.innerHTML = '';
+            projectTitle.textContent = 'Important';
+            projectDescription.textContent = '';
             storageController.resetDisplayedTasks();
-            storageController.LoopThroughImportantTasks(storageController.setDisplayedTask);
-            storageController.LoopThroughImportantTasks(appendTaskMarkup);
+            storageController.loopThroughImportantTasks(
+              storageController.setDisplayedTask
+            );
+            storageController.loopThroughImportantTasks(appendTaskMarkup);
             break;
         }
       });
@@ -381,10 +414,29 @@ const viewController = (() => {
       taskFormPriority.value
     );
     taskContainer.innerHTML = '';
-    storageController.loopThroughDisplayedTasks(appendTaskMarkup);
+    menuState === 'project' &&
+      storageController.loopThroughDisplayedTasks(appendTaskMarkup);
+    menuState === 'all' &&
+      storageController.loopThroughAllTasks(appendTaskMarkup);
+    menuState === 'today' &&
+      storageController.loopThroughTodaysTasks(appendTaskMarkup);
+    menuState === 'next 7' &&
+      storageController.loopThroughWeeksTasks(appendTaskMarkup);
+    menuState === 'important' &&
+      storageController.loopThroughImportantTasks(appendTaskMarkup);
     taskForm.reset();
     modal.style.display = 'none';
     taskModalContent.style.display = 'none';
+  });
+
+  /* Listener to sort displayed tasked based on due date/importance */
+
+  sortButton.addEventListener('click', (e) => {
+    e.preventDefault();
+    console.log(e.target);
+    sortButtonText.textContent === 'By Date'
+      ? (sortButtonText.textContent = 'By Priority')
+      : (sortButtonText.textContent = 'By Date');
   });
 
   window.onclick = (e) => {
