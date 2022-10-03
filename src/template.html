@@ -89,7 +89,8 @@
             </p>
           </div>
           <button class="sort-button" id="sort-button">
-            <span class="sort-button-text" id="sort-button-text">By Date</span><svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
+            <span class="sort-button-text" id="sort-button-text">By Date</span
+            ><svg style="width: 24px; height: 24px" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
                 d="M18 21L14 17H17V7H14L18 3L22 7H19V17H22M2 19V17H12V19M2 13V11H9V13M2 7V5H6V7H2Z"
@@ -181,6 +182,15 @@
             >
               Edit Task
             </button>
+          </form>
+        </div>
+        <div class="notes-modal-content" id="notes-modal">
+          <span class="modal-close" id="notes-modal-close">&times;</span>
+          <form action="" class="modal-form" id="notes-form">
+            <div class="form-element">
+              <label for="notes" class="form-label">Notes</label>
+              <textarea name="notes" id="notes-form-notes" rows="8"></textarea>
+            </div>
           </form>
         </div>
       </div>

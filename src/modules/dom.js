@@ -7,9 +7,11 @@ const viewController = (() => {
   const addTaskButton = document.querySelector('#add-task-button');
   const closeListModal = document.querySelector('#list-modal-close');
   const closeTaskModal = document.querySelector('#task-modal-close');
+  const closeNotesModal = document.querySelector('#notes-modal-close');
   const modal = document.querySelector('#modal');
   const listModalContent = document.querySelector('#list-modal');
   const taskModalContent = document.querySelector('#task-modal');
+  const notesModalContent = document.querySelector('#notes-modal');
   /* Form nodes */
   const listForm = document.querySelector('#list-form');
   const listFormTitle = document.querySelector('#list-form-title');
@@ -23,6 +25,8 @@ const viewController = (() => {
   const taskFormPriority = document.querySelector('#task-form-priority');
   const taskSubmitButton = document.querySelector('#task-submit-button');
   const taskEditButton = document.querySelector('#task-edit-button');
+  const notesForm = document.querySelector('#notes-form');
+  const notesFormNotes = document.querySelector('#notes-form-notes');
   /* Project display nodes */
   const projectContainer = document.querySelector('#projects-list');
   const projectTitle = document.querySelector('#project-title');
@@ -224,7 +228,11 @@ const viewController = (() => {
           storageController.loopThroughDisplayedTasks(appendTaskMarkup);
           break;
         case 'notes':
-          return;
+          notesForm.reset();
+          modal.style.display = 'flex';
+          notesModalContent.style.display = 'flex';
+          notesFormNotes.value =
+            storageController.projectList[projectIndex].tasks[taskIndex].notes;
           break;
         case 'edit':
           taskForm.reset();
@@ -354,6 +362,12 @@ const viewController = (() => {
     modal.style.display = 'none';
     taskModalContent.style.display = 'none';
   });
+
+  closeNotesModal.addEventListener('click', () => {
+    modal.style.display = 'none';
+    notesModalContent.style.display = 'none';
+  });
+
   /* Listeners for submitting/editing projects*/
   listForm.addEventListener('submit', (e) => {
     e.preventDefault();
@@ -445,6 +459,7 @@ const viewController = (() => {
       modal.style.display = 'none';
       taskModalContent.style.display = 'none';
       listModalContent.style.display = 'none';
+      notesModalContent.style.display = 'none';
     }
   };
 
