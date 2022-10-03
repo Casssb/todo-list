@@ -1,6 +1,6 @@
 import { projectFactory } from './projects';
 import { taskFactory } from './tasks';
-import { isToday, isThisWeek, parseISO } from 'date-fns';
+import { isToday, parseISO, addDays, isBefore } from 'date-fns';
 
 const storageController = (() => {
   const LOCAL_STORAGE_PROJECTS_KEY = 'todolist.list';
@@ -75,10 +75,12 @@ const storageController = (() => {
   };
 
   const loopThroughWeeksTasks = (callback) => {
+    const today = new Date();
+    const sevenDays = addDays(today, 6);
     const week = [];
     projectList.forEach((project) => {
       project.tasks.forEach((task) => {
-        if (isThisWeek(parseISO(task.dueDate))) {
+        if (isBefore(parseISO(task.dueDate), sevenDays)) {
           week.push(task);
         }
       });

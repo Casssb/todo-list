@@ -123,6 +123,7 @@ const viewController = (() => {
   const appendTaskMarkup = (task) => {
     const taskLi = document.createElement('li');
     const today = new Date();
+    today.setDate(today.getDate() - 1);
     const daysTilDue = formatDistance(parseISO(task.dueDate), today);
     taskLi.setAttribute('data-index', `${task.id}`);
     taskLi.setAttribute('data-project', `${task.project}`);
