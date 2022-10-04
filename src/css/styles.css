@@ -13,7 +13,7 @@
   --col-medium: rgb(207, 154, 54);
   --col-danger: rgb(199, 39, 39);
 
-  --col-theme: rgb(5, 2, 5);
+  --col-dark: rgb(5, 2, 5);
   --col-light: rgb(201, 201, 201);
   --col-highlight: grey;
   --col-background: lightblue;
@@ -37,24 +37,36 @@ body {
 .container {
   display: grid;
   grid-template-columns: minmax(12rem, min-content) 1fr;
+  grid-template-rows: min-content;
   max-width: 1000px;
   height: 80vh;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 1rem;
-  box-shadow: 0 4px 30px rgba(209, 209, 209, 0.1);
+  border-radius: 0.2rem;
+  box-shadow: 0 4px 30px rgba(17, 17, 17, 0.1);
   overflow: hidden;
   margin: 3rem;
   width: 90%;
 }
 
 .header {
-  padding: 0.5rem;
-  color: var(--col-theme);
-  background: rgba(255, 255, 255, 0.7);
+  grid-column: 1/-1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  height: 10vh;
+  padding: 0 1rem;
+  gap: 1rem;
+  color: var(--col-dark);
+  background: rgba(7, 6, 6, 0.8);
+  color: var(--col-light);
 }
+
 .nav {
   display: flex;
-  padding: 1rem;
+  color: var(--col-dark);
+  background: rgba(243, 243, 243, 0.3);
+  padding: 0.2rem;
+  width: 100%;
   height: 100%;
   flex-direction: column;
   align-items: center;
@@ -127,8 +139,8 @@ body {
 
 .project-container {
   background: rgba(255, 255, 255, 0.2);
-  max-height: 80vh;
-  color: var(--col-theme);
+  max-height: 90vh;
+  color: var(--col-dark);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   padding: 1rem;
@@ -145,14 +157,24 @@ body {
   width: 100%;
 }
 
-.project-title {
+.project-title-container {
+  align-self: flex-start;
+  margin-top: -0.8rem;
 }
 
 .sort-button {
+  align-self: flex-start;
+  margin-top: 0.2rem;
   margin-left: auto;
 }
 
 .task-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0;
   height: 100%;
   width: 100%;
   overflow-y: auto;
@@ -162,6 +184,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  background-color: rgba(240, 248, 255, 0.4);
+  border-radius: 0.2rem;
+  padding: 0.4rem;
 }
 
 .task-complete-checkbox {
@@ -206,28 +232,85 @@ body {
 }
 
 .list-modal-content {
+  position: relative;
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: black;
+  background-color: rgba(198, 235, 250, 0.3);
+  box-shadow: 0 4px 30px rgba(17, 17, 17, 0.1);
+  color: var(--col-dark);
+  border-radius: 0.2rem;
   padding: 2rem;
 }
 
 .task-modal-content {
+  position: relative;
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: black;
-  padding: 2rem;
+  background-color: rgba(198, 250, 242, 0.3);
+  box-shadow: 0 4px 30px rgba(17, 17, 17, 0.1);
+  color: var(--col-dark);
+  font-weight: 700;
+  border-radius: 0.2rem;
+  padding: 1.5rem;
 }
 
 .notes-modal-content {
+  position: relative;
   display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: black;
-  padding: 2rem;
+  background-color: rgba(250, 238, 198, 0.3);
+  box-shadow: 0 4px 30px rgba(17, 17, 17, 0.1);
+  color: var(--col-dark);
+  font-weight: 700;
+  border-radius: 0.2rem;
+  padding: 1.5rem;
+}
+
+.modal-close {
+  position: absolute;
+  font-weight: 700;
+  top: 0;
+  right: 0.8rem;
+  font-size: var(--font-size-lg);
+}
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.form-element {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.form-element input, .form-element textarea, .form-element select {
+  width: 100%;
+  outline: none;
+  border: 1px solid black;
+  border-radius: 0.2rem;
+  background-color: rgba(204, 204, 204, 0.5);
+  font-weight: 700;
+}
+
+.form-edit-button {
+  align-self: center;
+  margin-top: 0.2rem;
+}
+
+.form-submit-button {
+  align-self: center;
+  margin-top: 0.5rem;
 }
