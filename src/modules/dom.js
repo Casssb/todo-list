@@ -463,7 +463,7 @@ const viewController = (() => {
     }
   };
 
-  return { appendProjectMarkup, appendMenuListeners };
+  return { appendProjectMarkup, appendTaskMarkup, appendMenuListeners };
 })();
 
 const updateSort = () => {};
