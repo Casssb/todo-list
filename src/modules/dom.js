@@ -132,6 +132,12 @@ const viewController = (() => {
     taskLi.setAttribute('data-index', `${task.id}`);
     taskLi.setAttribute('data-project', `${task.project}`);
     taskLi.classList.add('task-li-elem');
+    task.priority === '1' && taskLi.classList.add('task-priority-low');
+    task.priority === '2' && taskLi.classList.add('task-priority-medium');
+    task.priority === '3' && taskLi.classList.add('task-priority-high');
+    task.complete
+      ? taskLi.classList.add('task-complete')
+      : taskLi.classList.remove('task-complete');
     taskLi.setAttribute('id', 'task-li-elem');
     taskLi.innerHTML = `${
       task.complete === false
@@ -153,7 +159,7 @@ const viewController = (() => {
             viewBox="0 0 24 24"
             aria-label="complete-checkbox"
             data-action="complete"
-            class='task-complete-checkobx'
+            class='task-complete-checkbox'
           >
           <path
             fill="currentColor"

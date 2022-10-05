@@ -16,7 +16,7 @@
   --col-dark: rgb(5, 2, 5);
   --col-light: rgb(201, 201, 201);
   --col-highlight: grey;
-  --col-dark-background: rgba(7, 6, 6, 0.8);;
+  --col-dark-background: rgba(7, 6, 6, 0.8);
 
   --font-main: 'Roboto', sans-serif;
 }
@@ -36,7 +36,7 @@ body {
 
 .container {
   display: grid;
-  grid-template-columns: minmax(14rem, min-content) 1fr;
+  grid-template-columns: minmax(16rem, min-content) 1fr;
   grid-template-rows: min-content;
   max-width: 1000px;
   height: 80vh;
@@ -92,7 +92,11 @@ body {
   gap: 0.4rem;
   align-items: center;
   justify-items: flex-start;
+}
 
+.menu-item:hover {
+  cursor: pointer;
+  transform: scale(1.06);
 }
 
 .menu-item svg {
@@ -123,8 +127,9 @@ body {
 }
 
 .projects-list {
+  overflow-x: hidden;
   overflow-y: auto;
-  max-height: 15rem;
+  max-height: 16rem;
   width: 100%;
 }
 
@@ -145,12 +150,30 @@ body {
   width: 100%;
 }
 
+.project-li-elem:hover {
+  cursor: pointer;
+  border-radius: 0.2rem;
+  background-color: rgba(255, 255, 255, 0.445);
+}
+
 .project-li-title {
   margin-right: auto;
 }
 
 .project-buttons-container {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-buttons-container svg:first-child:hover {
+  color: var(--col-medium);
+  transform: scale(1.1);
+}
+.project-buttons-container svg:nth-child(2):hover {
+  color: var(--col-danger);
+  transform: scale(1.1);
 }
 
 .add-project-button {
@@ -160,7 +183,9 @@ body {
   align-items: center;
   gap: 0.4rem;
   border-style: none;
+  border-radius: 0.2rem;
   background-color: inherit;
+  color: var(--col-dark);
   width: 100%;
 }
 
@@ -168,6 +193,11 @@ body {
   transform: scale(0.9);
 }
 
+.add-project-button:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.829);
+  font-weight: 700;
+}
 
 /* Left side nav styles end here */
 
@@ -247,7 +277,34 @@ body {
   padding: 0 0.6rem;
 }
 
-.task-complete-checkbox {
+.task-li-elem:hover {
+  background-color: rgba(240, 248, 255, 0.6);
+}
+
+.task-priority-low {
+  border-left: 4px solid var(--col-low);
+}
+
+.task-priority-medium {
+  border-left: 4px solid var(--col-medium);
+}
+
+.task-priority-high {
+  border-left: 4px solid var(--col-danger);
+}
+.task-complete {
+  background-color: rgba(119, 124, 128, 0.2);
+}
+
+.task-complete:hover {
+  background-color: rgba(119, 124, 128, 0.3);
+}
+
+.task-complete-checkbox:hover,
+.task-notes-button:hover,
+.task-edit-button:hover,
+.task-delete-button:hover {
+  cursor: pointer;
 }
 
 .task-li-title {
@@ -266,6 +323,21 @@ body {
   align-items: center;
   gap: 0.5rem;
   transform: scale(0.9);
+}
+
+.task-buttons-container svg:first-child:hover {
+  color: var(--col-low);
+  transform: scale(1.1);
+}
+
+.task-buttons-container svg:nth-child(2):hover {
+  color: var(--col-medium);
+  transform: scale(1.1);
+}
+
+.task-buttons-container svg:nth-child(3):hover {
+  color: var(--col-danger);
+  transform: scale(1.1);
 }
 
 .add-task-button {
@@ -365,7 +437,9 @@ body {
   width: 100%;
 }
 
-.form-element input, .form-element textarea, .form-element select {
+.form-element input,
+.form-element textarea,
+.form-element select {
   width: 100%;
   outline: none;
   border: 1px solid black;
@@ -374,7 +448,12 @@ body {
   font-weight: 700;
 }
 
-.form-edit-button {
+.form-edit-button,
+.form-submit-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   align-self: center;
   margin-top: 0.5rem;
   border-style: none;
@@ -384,12 +463,11 @@ body {
   color: var(--col-light);
 }
 
-.form-submit-button {
-  align-self: center;
-  margin-top: 0.5rem;
-  border-style: none;
-  border-radius: 0.2rem;
-  padding: 0.4rem;
-  background-color: rgba(7, 6, 6, 0.8);
-  color: var(--col-light);
+.form-edit-button:hover,
+.form-submit-button:hover,
+.add-task-button:hover,
+.sort-button:hover {
+  cursor: pointer;
+  background-color: rgba(7, 6, 6, 1);
+  color: white;
 }
