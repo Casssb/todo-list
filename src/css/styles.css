@@ -56,17 +56,17 @@ body {
   height: 10vh;
   padding: 0 1rem;
   gap: 1rem;
-  color: var(--col-dark);
   background: var(--col-dark-background);
   color: var(--col-light);
+  font-size: var(--font-size-base);
 }
 
-/* Left nav styles start here */
+/* Nav styles start here */
 
 .nav {
   display: flex;
   color: var(--col-dark);
-  background: rgba(243, 243, 243, 0.3);
+  background: rgba(243, 243, 243, 0.4);
   padding: 0.4rem;
   width: 100%;
   height: 100%;
@@ -78,45 +78,30 @@ body {
 }
 
 .nav-menu {
-  width: 75%;
-  margin: 0 4rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
+  width: 100%;
+  display: block;
 }
 
 .menu-item {
-  margin: -0.4rem;
   display: flex;
-  gap: 0.4rem;
   align-items: center;
-  justify-items: flex-start;
+  justify-content: flex-start;
+  gap: 2rem;
+  width: 100%;
+}
+
+.menu-item svg {
+  margin-right: -1.5rem;
 }
 
 .menu-item:hover {
   cursor: pointer;
-  transform: scale(1.06);
+  border-radius: 0.2rem;
+  background-color: rgba(255, 255, 255, 0.445);
 }
 
 .menu-item svg {
   transform: scale(1.2);
-}
-
-.menu-item:first-child svg {
-  color: rgb(180, 47, 180);
-}
-
-.menu-item:nth-child(2) svg {
-  color: rgb(73, 184, 73);
-}
-
-.menu-item:nth-child(3) svg {
-  color: var(--col-low);
-}
-
-.menu-item:nth-child(4) svg {
-  color: var(--col-danger);
 }
 
 .nav-projects {
@@ -199,9 +184,9 @@ body {
   font-weight: 700;
 }
 
-/* Left side nav styles end here */
+/* Nav styles end here */
 
-/* Right side container styles start here */
+/* Main container styles start here */
 
 .project-container {
   background: rgba(255, 255, 255, 0.2);
@@ -214,6 +199,7 @@ body {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
+  font-size: var(--font-size-sm);
 }
 
 .project-header {
@@ -228,6 +214,10 @@ body {
   margin-top: -0.8rem;
 }
 
+.project-title {
+  font-size: var(--font-size-base);
+}
+
 .sort-button {
   align-self: flex-start;
   margin-top: 0.2rem;
@@ -235,6 +225,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  font-size: var(--font-size-sm);
   font-weight: 700;
   gap: 0.5rem;
   padding: 0.2rem 0.5rem;
@@ -317,6 +308,11 @@ body {
   padding-right: 2rem;
 }
 
+.task-date-due {
+  color: var(--col-danger);
+  font-weight: 700;
+}
+
 .task-buttons-container {
   display: flex;
   justify-content: center;
@@ -341,6 +337,7 @@ body {
 }
 
 .add-task-button {
+  margin-top: auto;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -354,7 +351,7 @@ body {
   color: var(--col-light);
 }
 
-/* Right side container styles end here */
+/* Main container styles end here */
 
 /* Modal styles start here */
 
@@ -421,6 +418,11 @@ body {
   font-size: var(--font-size-lg);
 }
 
+.modal-close:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
 .modal-form {
   display: flex;
   flex-direction: column;
@@ -470,4 +472,57 @@ body {
   cursor: pointer;
   background-color: rgba(7, 6, 6, 1);
   color: white;
+}
+
+/* Modal styles end here */
+
+/* Media Queries */
+
+@media screen and (max-width: 900px) {
+  .container {
+    max-width: none;
+    height: 100vh;
+    min-width: 100vw;
+    margin: none;
+    border: none;
+    border-radius: 0px;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .container {
+    grid-template-columns: 1fr;
+    min-height: 100vh;
+  }
+
+  .hamburger-menu:hover {
+    cursor: pointer;
+  }
+  .line {
+    background-color: var(--col-light);
+    width: 30px;
+    height: 3px;
+    margin: 5px;
+    border-radius: 15px;
+  }
+
+  .nav {
+    display: none;
+  }
+
+  .nav-toggle {
+    display: flex;
+  }
+
+  .line1 {
+    transform: rotate(-45deg) translate(-5px, 6px);
+  }
+
+  .line2 {
+    opacity: 0;
+  }
+
+  .line3 {
+    transform: rotate(45deg) translate(-5px, -6px);
+  }
 }

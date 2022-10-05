@@ -25,7 +25,35 @@ const storageController = (() => {
     });
   };
 
-  const loopThroughActiveProjectTasks = (callback) => {
+  const sortTaskArray = (array, sortState = null) => {
+    const sorted = [];
+    if (sortState !== null) {
+      const completeTasks = array.filter((task) => task.complete);
+      const unfinishedTasks = array.filter((task) => !task.complete);
+      completeTasks.sort(
+        (a, b) => Date.parse(a.dueDate) - Date.parse(b.dueDate)
+      );
+      unfinishedTasks.sort(
+        (a, b) => Date.parse(a.dueDate) - Date.parse(b.dueDate)
+      );
+      if (sortState === 'By Date') {
+        unfinishedTasks.concat(completeTasks).forEach((task) => {
+          sorted.push(task);
+        });
+      } else if (sortState === 'By Priority') {
+        completeTasks.sort((a, b) => b.priority - a.priority);
+        unfinishedTasks.sort((a, b) => b.priority - a.priority);
+        unfinishedTasks.concat(completeTasks).forEach((task) => {
+          sorted.push(task);
+        });
+      }
+      return sorted;
+    } else {
+      return array;
+    }
+  };
+
+  const loopThroughActiveProjectTasks = (callback, sortState) => {
     const activeProjectTasks = [];
     projectList.forEach((project) => {
       if (project.active === true) {
@@ -35,11 +63,11 @@ const storageController = (() => {
         });
       }
     });
-    activeProjectTasks.sort((a, b) => a.complete - b.complete);
-    activeProjectTasks.forEach((task) => callback(task));
+    const sorted = sortTaskArray(activeProjectTasks, sortState);
+    sorted.forEach((task) => callback(task));
   };
 
-  const loopThroughDisplayedTasks = (callback) => {
+  const loopThroughDisplayedTasks = (callback, sortState) => {
     const displayedTasks = [];
     projectList.forEach((project) => {
       project.tasks.forEach((task) => {
@@ -48,19 +76,22 @@ const storageController = (() => {
         }
       });
     });
-    displayedTasks.sort((a, b) => a.complete - b.complete);
-    displayedTasks.forEach((task) => callback(task));
+    const sorted = sortTaskArray(displayedTasks, sortState);
+    sorted.forEach((task) => callback(task));
   };
 
-  const loopThroughAllTasks = (callback) => {
+  const loopThroughAllTasks = (callback, sortState) => {
+    const allTasks = [];
     projectList.forEach((project) => {
       project.tasks.forEach((task) => {
-        callback(task);
+        allTasks.push(task);
       });
     });
+    const sorted = sortTaskArray(allTasks, sortState);
+    sorted.forEach((task) => callback(task));
   };
 
-  const loopThroughTodaysTasks = (callback) => {
+  const loopThroughTodaysTasks = (callback, sortState) => {
     const today = [];
     projectList.forEach((project) => {
       project.tasks.forEach((task) => {
@@ -69,12 +100,11 @@ const storageController = (() => {
         }
       });
     });
-    today.forEach((task) => {
-      callback(task);
-    });
+    const sorted = sortTaskArray(today, sortState);
+    sorted.forEach((task) => callback(task));
   };
 
-  const loopThroughWeeksTasks = (callback) => {
+  const loopThroughWeeksTasks = (callback, sortState) => {
     const today = new Date();
     const sevenDays = addDays(today, 6);
     const week = [];
@@ -85,12 +115,11 @@ const storageController = (() => {
         }
       });
     });
-    week.forEach((task) => {
-      callback(task);
-    });
+    const sorted = sortTaskArray(week, sortState);
+    sorted.forEach((task) => callback(task));
   };
 
-  const loopThroughImportantTasks = (callback) => {
+  const loopThroughImportantTasks = (callback, sortState) => {
     const important = [];
     projectList.forEach((project) => {
       project.tasks.forEach((task) => {
@@ -99,9 +128,8 @@ const storageController = (() => {
         }
       });
     });
-    important.forEach((task) => {
-      callback(task);
-    });
+    const sorted = sortTaskArray(important, sortState);
+    sorted.forEach((task) => callback(task));
   };
 
   const updateStorage = () => {

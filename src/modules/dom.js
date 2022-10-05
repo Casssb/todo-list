@@ -3,6 +3,8 @@ import { parseISO, isAfter, formatDistance } from 'date-fns';
 
 const viewController = (() => {
   /* Modal nodes */
+  const nav = document.querySelector('#nav');
+  const hamburgerMenu = document.querySelector('#hamburger-menu');
   const addProjectButton = document.querySelector('#add-project-button');
   const addTaskButton = document.querySelector('#add-task-button');
   const closeListModal = document.querySelector('#list-modal-close');
@@ -87,6 +89,7 @@ const viewController = (() => {
       e.stopPropagation();
       e.preventDefault();
       addTaskButton.style.display = 'flex';
+      nav.classList.toggle('nav-toggle');
       menuState = 'project';
       const target = e.target;
       const projectId = e.currentTarget.dataset.id;
@@ -95,7 +98,10 @@ const viewController = (() => {
       storageController.setActiveProject(projectId);
       taskContainer.innerHTML = '';
       storageController.resetDisplayedTasks();
-      storageController.loopThroughActiveProjectTasks(appendTaskMarkup);
+      storageController.loopThroughActiveProjectTasks(
+        appendTaskMarkup,
+        sortButtonText.textContent
+      );
       projectContainer.innerHTML = '';
       storageController.loopThroughProjects(appendProjectMarkup);
 
@@ -116,7 +122,10 @@ const viewController = (() => {
           projectContainer.innerHTML = '';
           storageController.loopThroughProjects(appendProjectMarkup);
           taskContainer.innerHTML = '';
-          storageController.loopThroughActiveProjectTasks(appendTaskMarkup);
+          storageController.loopThroughActiveProjectTasks(
+            appendTaskMarkup,
+            sortButtonText.textContent
+          );
           break;
         default:
           throw new Error('no action selected');
@@ -169,7 +178,9 @@ const viewController = (() => {
         </svg>`
     }
     <p class="task-li-title">${task.title}</p>
-    <span class="task-li-date">${
+    <span class="task-li-date ${
+      isAfter(today, parseISO(task.dueDate)) ? 'task-date-due' : ``
+    }">${
       isAfter(today, parseISO(task.dueDate))
         ? 'Overdue'
         : `Due in ${daysTilDue}`
@@ -265,15 +276,30 @@ const viewController = (() => {
           storageController.deleteTask(projectIndex, taskIndex);
           taskContainer.innerHTML = '';
           menuState === 'project' &&
-            storageController.loopThroughDisplayedTasks(appendTaskMarkup);
+            storageController.loopThroughDisplayedTasks(
+              appendTaskMarkup,
+              sortButtonText.textContent
+            );
           menuState === 'all' &&
-            storageController.loopThroughAllTasks(appendTaskMarkup);
+            storageController.loopThroughAllTasks(
+              appendTaskMarkup,
+              sortButtonText.textContent
+            );
           menuState === 'today' &&
-            storageController.loopThroughTodaysTasks(appendTaskMarkup);
+            storageController.loopThroughTodaysTasks(
+              appendTaskMarkup,
+              sortButtonText.textContent
+            );
           menuState === 'next 7' &&
-            storageController.loopThroughWeeksTasks(appendTaskMarkup);
+            storageController.loopThroughWeeksTasks(
+              appendTaskMarkup,
+              sortButtonText.textContent
+            );
           menuState === 'important' &&
-            storageController.loopThroughImportantTasks(appendTaskMarkup);
+            storageController.loopThroughImportantTasks(
+              appendTaskMarkup,
+              sortButtonText.textContent
+            );
           break;
         default:
           throw new Error('no action selected');
@@ -294,6 +320,7 @@ const viewController = (() => {
         switch (action) {
           case 'all':
             menuState = 'all';
+            nav.classList.toggle('nav-toggle');
             taskContainer.innerHTML = '';
             projectTitle.textContent = 'All Tasks';
             projectDescription.textContent = '';
@@ -301,10 +328,14 @@ const viewController = (() => {
             storageController.loopThroughAllTasks(
               storageController.setDisplayedTask
             );
-            storageController.loopThroughAllTasks(appendTaskMarkup);
+            storageController.loopThroughAllTasks(
+              appendTaskMarkup,
+              sortButtonText.textContent
+            );
             break;
           case 'today':
             menuState = 'today';
+            nav.classList.toggle('nav-toggle');
             taskContainer.innerHTML = '';
             projectTitle.textContent = 'Today';
             projectDescription.textContent = '';
@@ -312,10 +343,14 @@ const viewController = (() => {
             storageController.loopThroughTodaysTasks(
               storageController.setDisplayedTask
             );
-            storageController.loopThroughTodaysTasks(appendTaskMarkup);
+            storageController.loopThroughTodaysTasks(
+              appendTaskMarkup,
+              sortButtonText.textContent
+            );
             break;
           case 'next 7':
             menuState = 'next 7';
+            nav.classList.toggle('nav-toggle');
             taskContainer.innerHTML = '';
             projectTitle.textContent = 'This Week';
             projectDescription.textContent = '';
@@ -324,10 +359,14 @@ const viewController = (() => {
               storageController.setDisplayedTask
             );
             menuState === 'next 7' &&
-              storageController.loopThroughWeeksTasks(appendTaskMarkup);
+              storageController.loopThroughWeeksTasks(
+                appendTaskMarkup,
+                sortButtonText.textContent
+              );
             break;
           case 'important':
             menuState = 'important';
+            nav.classList.toggle('nav-toggle');
             taskContainer.innerHTML = '';
             projectTitle.textContent = 'Important';
             projectDescription.textContent = '';
@@ -335,7 +374,10 @@ const viewController = (() => {
             storageController.loopThroughImportantTasks(
               storageController.setDisplayedTask
             );
-            storageController.loopThroughImportantTasks(appendTaskMarkup);
+            storageController.loopThroughImportantTasks(
+              appendTaskMarkup,
+              sortButtonText.textContent
+            );
             break;
         }
       });
@@ -389,6 +431,7 @@ const viewController = (() => {
     listForm.reset();
     modal.style.display = 'none';
     listModalContent.style.display = 'none';
+    nav.classList.toggle('nav-toggle');
   });
 
   listEditButton.addEventListener('click', (e) => {
@@ -436,15 +479,30 @@ const viewController = (() => {
     );
     taskContainer.innerHTML = '';
     menuState === 'project' &&
-      storageController.loopThroughDisplayedTasks(appendTaskMarkup);
+      storageController.loopThroughDisplayedTasks(
+        appendTaskMarkup,
+        sortButtonText.textContent
+      );
     menuState === 'all' &&
-      storageController.loopThroughAllTasks(appendTaskMarkup);
+      storageController.loopThroughAllTasks(
+        appendTaskMarkup,
+        sortButtonText.textContent
+      );
     menuState === 'today' &&
-      storageController.loopThroughTodaysTasks(appendTaskMarkup);
+      storageController.loopThroughTodaysTasks(
+        appendTaskMarkup,
+        sortButtonText.textContent
+      );
     menuState === 'next 7' &&
-      storageController.loopThroughWeeksTasks(appendTaskMarkup);
+      storageController.loopThroughWeeksTasks(
+        appendTaskMarkup,
+        sortButtonText.textContent
+      );
     menuState === 'important' &&
-      storageController.loopThroughImportantTasks(appendTaskMarkup);
+      storageController.loopThroughImportantTasks(
+        appendTaskMarkup,
+        sortButtonText.textContent
+      );
     taskForm.reset();
     modal.style.display = 'none';
     taskModalContent.style.display = 'none';
@@ -458,6 +516,21 @@ const viewController = (() => {
     sortButtonText.textContent === 'By Date'
       ? (sortButtonText.textContent = 'By Priority')
       : (sortButtonText.textContent = 'By Date');
+    taskContainer.innerHTML = '';
+    storageController.loopThroughDisplayedTasks(
+      appendTaskMarkup,
+      sortButtonText.textContent
+    );
+  });
+
+  hamburgerMenu.addEventListener('click', () => {
+    nav.classList.toggle('nav-toggle');
+    const line1 = document.querySelector('#line1');
+    const line2 = document.querySelector('#line2');
+    const line3 = document.querySelector('#line3');
+    line1.classList.toggle('line1');
+    line2.classList.toggle('line2');
+    line3.classList.toggle('line3');
   });
 
   window.onclick = (e) => {
@@ -469,9 +542,16 @@ const viewController = (() => {
     }
   };
 
-  return { appendProjectMarkup, appendTaskMarkup, appendMenuListeners };
-})();
+  const init = () => {
+    storageController.loopThroughProjects(appendProjectMarkup);
+    storageController.loopThroughActiveProjectTasks(
+      appendTaskMarkup,
+      sortButtonText.textContent
+    );
+    appendMenuListeners();
+  };
 
-const updateSort = () => {};
+  return { init };
+})();
 
 export { viewController };
