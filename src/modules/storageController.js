@@ -14,7 +14,7 @@ const storageController = (() => {
       tasks: [
         {
           title: 'Check out my',
-          notes: 'You can, edit & delete tasks and assign them to projects',
+          notes: 'You can add, edit & delete tasks and assign them to projects',
           dueDate: '2022-10-08',
           priority: '1',
           id: 0,
