@@ -25,6 +25,9 @@ const storageController = (() => {
     });
   };
 
+  /* Function to sort  task arrays (within project array).
+  Has 2 inputs: The array to sort & the state of the sort button.
+  When no sort menu state is passed it just returns the original array*/
   const sortTaskArray = (array, sortState = null) => {
     const sorted = [];
     if (sortState !== null) {

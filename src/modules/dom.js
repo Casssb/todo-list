@@ -2,12 +2,13 @@ import { storageController } from './storageController';
 import { parseISO, isAfter, formatDistance } from 'date-fns';
 
 const viewController = (() => {
-  /* Modal nodes */
+  /* Hamburger menu nodes */
   const nav = document.querySelector('#nav');
   const hamburgerMenu = document.querySelector('#hamburger-menu');
   const hamburgerLine1 = document.querySelector('#line1');
   const hamburgerLine2 = document.querySelector('#line2');
   const hamburgerLine3 = document.querySelector('#line3');
+  /* Modal nodes */
   const addProjectButton = document.querySelector('#add-project-button');
   const addTaskButton = document.querySelector('#add-task-button');
   const closeListModal = document.querySelector('#list-modal-close');
@@ -544,6 +545,7 @@ const viewController = (() => {
     );
   });
 
+  /* Listener to toggle the hamburger menu */
   hamburgerMenu.addEventListener('click', () => {
     nav.classList.toggle('nav-toggle');
     hamburgerLine1.classList.toggle('line1');
@@ -551,6 +553,8 @@ const viewController = (() => {
     hamburgerLine3.classList.toggle('line3');
   });
 
+  /* Listener to close modal without having to click exit button
+  (you can just click anywhere on the screen outside the form) */
   window.onclick = (e) => {
     if (e.target == modal) {
       modal.style.display = 'none';
