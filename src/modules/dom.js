@@ -249,14 +249,10 @@ const viewController = (() => {
         case 'complete':
           storageController.switchTaskComplete(projectIndex, taskIndex);
           taskContainer.innerHTML = '';
-<<<<<<< HEAD
           storageController.loopThroughDisplayedTasks(
             appendTaskMarkup,
             sortButtonText.textContent
           );
-=======
-          storageController.loopThroughDisplayedTasks(appendTaskMarkup);
->>>>>>> 596de7b2bd311ea2ac1199a04c1dd92a9b092957
           break;
         case 'notes':
           notesForm.reset();
@@ -541,10 +537,6 @@ const viewController = (() => {
 
   sortButton.addEventListener('click', (e) => {
     e.preventDefault();
-<<<<<<< HEAD
-=======
-    console.log(e.target);
->>>>>>> 596de7b2bd311ea2ac1199a04c1dd92a9b092957
     sortButtonText.textContent === 'By Date'
       ? (sortButtonText.textContent = 'By Priority')
       : (sortButtonText.textContent = 'By Date');
