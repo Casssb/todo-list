@@ -11,6 +11,7 @@ const storageController = (() => {
       title: 'General Tasks',
       description: '',
       id: 'default',
+<<<<<<< HEAD
       tasks: [
         {
           title: 'Check out my',
@@ -44,6 +45,9 @@ const storageController = (() => {
           isDisplayed: true,
         },
       ],
+=======
+      tasks: [],
+>>>>>>> 596de7b2bd311ea2ac1199a04c1dd92a9b092957
       active: true,
     },
   ];
@@ -82,7 +86,10 @@ const storageController = (() => {
           sorted.push(task);
         });
       }
+<<<<<<< HEAD
       console.log(sorted)
+=======
+>>>>>>> 596de7b2bd311ea2ac1199a04c1dd92a9b092957
       return sorted;
     } else {
       return array;
@@ -101,7 +108,10 @@ const storageController = (() => {
     });
     const sorted = sortTaskArray(activeProjectTasks, sortState);
     sorted.forEach((task) => callback(task));
+<<<<<<< HEAD
     console.log(projectList);
+=======
+>>>>>>> 596de7b2bd311ea2ac1199a04c1dd92a9b092957
   };
 
   const loopThroughDisplayedTasks = (callback, sortState) => {

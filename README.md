@@ -20,7 +20,10 @@ This project seemed to be going super smoothly until I had to build in the funct
 * I’m thinking about re-doing some of the styling on the nav menu for mobile screen sizes as I’m not 100% happy with it (I’m never happy with my CSS!)
 * When I was planning out the app originally it all looked a whole lot more readable and cleaner when everything was sorted into classes. I feel like I was somewhat successful in keeping my 2 main modules loosely coupled but could have split my DOM module into various smaller modules if I’d managed some of the state better.
 * I was trying to be conscious of time complexity when dealing with the sorting logic but have ended up using many n2 loops  (I’d tried to make sure arrays were sorted prior to being iterated over). I’d originally considered having 2x storage arrays (one for projects and another for tasks) but thought having a 2D array would be more logical. If I’d gone with 2x arrays I’d have less overall time complexity I think.
+<<<<<<< HEAD
 * I was thinking about adding in other functionality like a checklist within each task and a better organisation system for multiple projects/tasks (I've pretty much just gone with a scroll/overflow but it would be much nicer with a dropdown type menu).
+=======
+>>>>>>> 596de7b2bd311ea2ac1199a04c1dd92a9b092957
 
 ## Credits
 * SVG icons from [Material Design](https://materialdesignicons.com/)
