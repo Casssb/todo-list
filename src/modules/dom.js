@@ -5,6 +5,9 @@ const viewController = (() => {
   /* Modal nodes */
   const nav = document.querySelector('#nav');
   const hamburgerMenu = document.querySelector('#hamburger-menu');
+  const hamburgerLine1 = document.querySelector('#line1');
+  const hamburgerLine2 = document.querySelector('#line2');
+  const hamburgerLine3 = document.querySelector('#line3');
   const addProjectButton = document.querySelector('#add-project-button');
   const addTaskButton = document.querySelector('#add-task-button');
   const closeListModal = document.querySelector('#list-modal-close');
@@ -90,6 +93,9 @@ const viewController = (() => {
       e.preventDefault();
       addTaskButton.style.display = 'flex';
       nav.classList.toggle('nav-toggle');
+      hamburgerLine1.classList.toggle('line1');
+      hamburgerLine2.classList.toggle('line2');
+      hamburgerLine3.classList.toggle('line3');
       menuState = 'project';
       const target = e.target;
       const projectId = e.currentTarget.dataset.id;
@@ -321,6 +327,9 @@ const viewController = (() => {
           case 'all':
             menuState = 'all';
             nav.classList.toggle('nav-toggle');
+            hamburgerLine1.classList.toggle('line1');
+            hamburgerLine2.classList.toggle('line2');
+            hamburgerLine3.classList.toggle('line3');
             taskContainer.innerHTML = '';
             projectTitle.textContent = 'All Tasks';
             projectDescription.textContent = '';
@@ -336,6 +345,9 @@ const viewController = (() => {
           case 'today':
             menuState = 'today';
             nav.classList.toggle('nav-toggle');
+            hamburgerLine1.classList.toggle('line1');
+            hamburgerLine2.classList.toggle('line2');
+            hamburgerLine3.classList.toggle('line3');
             taskContainer.innerHTML = '';
             projectTitle.textContent = 'Today';
             projectDescription.textContent = '';
@@ -351,6 +363,9 @@ const viewController = (() => {
           case 'next 7':
             menuState = 'next 7';
             nav.classList.toggle('nav-toggle');
+            hamburgerLine1.classList.toggle('line1');
+            hamburgerLine2.classList.toggle('line2');
+            hamburgerLine3.classList.toggle('line3');
             taskContainer.innerHTML = '';
             projectTitle.textContent = 'This Week';
             projectDescription.textContent = '';
@@ -367,6 +382,9 @@ const viewController = (() => {
           case 'important':
             menuState = 'important';
             nav.classList.toggle('nav-toggle');
+            hamburgerLine1.classList.toggle('line1');
+            hamburgerLine2.classList.toggle('line2');
+            hamburgerLine3.classList.toggle('line3');
             taskContainer.innerHTML = '';
             projectTitle.textContent = 'Important';
             projectDescription.textContent = '';
@@ -432,6 +450,9 @@ const viewController = (() => {
     modal.style.display = 'none';
     listModalContent.style.display = 'none';
     nav.classList.toggle('nav-toggle');
+    hamburgerLine1.classList.toggle('line1');
+    hamburgerLine2.classList.toggle('line2');
+    hamburgerLine3.classList.toggle('line3');
   });
 
   listEditButton.addEventListener('click', (e) => {
@@ -525,12 +546,9 @@ const viewController = (() => {
 
   hamburgerMenu.addEventListener('click', () => {
     nav.classList.toggle('nav-toggle');
-    const line1 = document.querySelector('#line1');
-    const line2 = document.querySelector('#line2');
-    const line3 = document.querySelector('#line3');
-    line1.classList.toggle('line1');
-    line2.classList.toggle('line2');
-    line3.classList.toggle('line3');
+    hamburgerLine1.classList.toggle('line1');
+    hamburgerLine2.classList.toggle('line2');
+    hamburgerLine3.classList.toggle('line3');
   });
 
   window.onclick = (e) => {
